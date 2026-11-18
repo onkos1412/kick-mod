@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "${id}",
+  "name": "${name}",
+  "version": "${version}",
+  "authors": [
+    "${authors}"
+  ],
+  "description": "${description}",
+  "icon": "icon.png",
+  "license": "${license}",
+  "environment": "*",
+  "accessWidener": "aw/${sc_version}.accesswidener",
+  "entrypoints": {
+    "main": [
+      "${group}.${id}.platform.fabric.FabricEntrypoint"
+    ],
+    "client": [
+      "${group}.${id}.platform.fabric.FabricClientEntrypoint"
+    ]
+  },
+  "mixins": [
+    "${id}.mixins.json"
+  ],
+  "depends": {},
+  "breaks": {}
+}

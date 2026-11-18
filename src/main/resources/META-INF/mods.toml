@@ -1,0 +1,18 @@
+modLoader = "javafml"
+loaderVersion = "[2,)"
+license = "${license}"
+
+[[mods]]
+modId = "${id}"
+displayName = "${name}"
+version = "${version}"
+logoFile = "icon.png"
+authors = "${authors}"
+logoBlur = false
+credits = "${contributors}"
+
+description = '''${description}'''
+
+[[mixins]]
+config = "${id}.mixins.json"
+${dependencies}
