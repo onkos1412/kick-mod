@@ -52,6 +52,8 @@ repositories {
 dependencies {
 	implementation(libs.moulberry.mixinconstraints)
 	jarJar(libs.moulberry.mixinconstraints)
+	// ModDevGradle leaves Minecraft's libraries off the plain unit-test runtime; our pure logic uses Gson.
+	testRuntimeOnly("com.google.code.gson:gson:2.11.0")
 }
 
 tasks.named("createMinecraftArtifacts") {
