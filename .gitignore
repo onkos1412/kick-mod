@@ -1,0 +1,8 @@
+build/
+.gradle/
+run/
+versions/*/build/
+.superpowers/
+.idea/
+*.iml
+out/
