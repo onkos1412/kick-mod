@@ -4,5 +4,6 @@
   "death.attack.kick.player": "%1$s был запинан %2$s",
   "key.kick.kick": "Пнуть",
   "key.categories.kick": "Пинок",
-  "subtitles.kick.entity.kick": "Пинок"
+  "subtitles.kick.entity.kick": "Пинок",
+  "key.category.kick.kick": "Пинок"
 }

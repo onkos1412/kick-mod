@@ -26,6 +26,10 @@ neoForge {
 			gameDirectory = file("run/")
 			ideName = "NeoForge Client (${stonecutter.active?.version})"
 			programArgument("--username=Player")
+			if (System.getenv("KICK_SELFTEST") != null) { // dev-only end-to-end self-test, see KickSelfTest
+				systemProperty("kick.selftest", "true")
+				programArguments.addAll("--quickPlaySingleplayer", "kickst")
+			}
 			disableIdeRun()
 		}
 		register("server") {

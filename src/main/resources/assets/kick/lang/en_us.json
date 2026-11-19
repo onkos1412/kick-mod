@@ -4,5 +4,6 @@
   "death.attack.kick.player": "%1$s was kicked to death by %2$s",
   "key.kick.kick": "Kick",
   "key.categories.kick": "Kick!",
-  "subtitles.kick.entity.kick": "Kick"
+  "subtitles.kick.entity.kick": "Kick",
+  "key.category.kick.kick": "Kick!"
 }

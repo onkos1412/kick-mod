@@ -55,6 +55,10 @@ minecraft {
 		}
 		register("client") {
 			args("--username", "Player")
+			if (System.getenv("KICK_SELFTEST") != null) { // dev-only end-to-end self-test, see KickSelfTest
+				args("--quickPlaySingleplayer", "kickst")
+				systemProperty("kick.selftest", "true")
+			}
 		}
 		register("server") {
 			args("--nogui")

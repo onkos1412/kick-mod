@@ -28,6 +28,10 @@ loom {
 		runDir = "run/"
 		environment = "client"
 		programArgs("--username=Player")
+		if (System.getenv("KICK_SELFTEST") != null) { // dev-only end-to-end self-test, see KickSelfTest
+			vmArg("-Dkick.selftest=true")
+			programArgs("--quickPlaySingleplayer", "kickst")
+		}
 		configName = "Fabric Client"
 		if (isJbr) vmArg("-XX:+AllowEnhancedClassRedefinition")
 	}
