@@ -24,6 +24,7 @@ public final class Kick {
 	/** Common entry point, called by every loader's main entrypoint. */
 	public static void init() {
 		LOGGER.info("Kick! loaded on {}", PLATFORM.loader());
+		KickConfigFile.load(PLATFORM.configDir());
 	}
 
 	/** Client entry point, called by every loader's client setup. */

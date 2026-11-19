@@ -1,0 +1,11 @@
+{
+  "entity.kick": {
+    "subtitle": "subtitles.kick.entity.kick",
+    "sounds": [
+      { "name": "minecraft:mob/slime/big1", "pitch": 0.7 },
+      { "name": "minecraft:mob/slime/big2", "pitch": 0.7 },
+      { "name": "minecraft:mob/slime/big3", "pitch": 0.7 },
+      { "name": "minecraft:mob/slime/big4", "pitch": 0.7 }
+    ]
+  }
+}

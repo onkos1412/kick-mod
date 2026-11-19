@@ -1,0 +1,8 @@
+{
+  "death.attack.kick": "%1$s был запинан %2$s",
+  "death.attack.kick.item": "%1$s был запинан %2$s",
+  "death.attack.kick.player": "%1$s был запинан %2$s",
+  "key.kick.kick": "Пнуть",
+  "key.categories.kick": "Пинок",
+  "subtitles.kick.entity.kick": "Пинок"
+}

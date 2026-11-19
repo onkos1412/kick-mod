@@ -4,6 +4,9 @@ package com.kickmod.kick.platform.neoforge;
 
 /*import com.kickmod.kick.platform.Platform;
 import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.fml.loading.FMLPaths;
+
+import java.nio.file.Path;
 
 public class NeoforgePlatform implements Platform {
 
@@ -19,6 +22,11 @@ public class NeoforgePlatform implements Platform {
 		^///?} else {
 		return FMLEnvironment.getDist().isClient();
 		//?}
+	}
+
+	@Override
+	public Path configDir() {
+		return FMLPaths.CONFIGDIR.get();
 	}
 }
 *///?}
