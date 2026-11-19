@@ -9,10 +9,13 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.Identifier;
 //? if >=1.21.9 {
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.client.renderer.rendertype.RenderTypes;
 //?} else {
 /*import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+*///?}
+//? if >=1.21.11 {
+import net.minecraft.client.renderer.rendertype.RenderTypes;
+//?} else {
+/*import net.minecraft.client.renderer.RenderType;
 *///?}
 //? if >=26.3 {
 import net.minecraft.client.renderer.texture.UvMapping;
@@ -64,8 +67,10 @@ public final class FirstPersonLegRenderer {
 		Identifier skin = skin(player);
 		//? if >=26.3 {
 		out.submitModelPart(leg, pose, RenderTypes.entityTranslucent(skin), light, OverlayTexture.NO_OVERLAY, (UvMapping) null);
-		//?} else if >=1.21.9 {
+		//?} else if >=1.21.11 {
 		/*out.submitModelPart(leg, pose, RenderTypes.entityTranslucent(skin), light, OverlayTexture.NO_OVERLAY, (TextureAtlasSprite) null);
+		*///?} else if >=1.21.9 {
+		/*out.submitModelPart(leg, pose, RenderType.entityTranslucent(skin), light, OverlayTexture.NO_OVERLAY, (TextureAtlasSprite) null);
 		*///?} else {
 		/*var buffer = out.getBuffer(RenderType.entityTranslucent(skin));
 		leg.render(pose, buffer, light, OverlayTexture.NO_OVERLAY);

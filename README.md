@@ -52,15 +52,22 @@ One jar per Minecraft line and loader. Quilt: use the Fabric jar. Fabric also ne
 | Minecraft | Fabric | NeoForge | Forge |
 |---|---|---|---|
 | 1.20 – 1.20.1 | ✔ | — (use Forge) | ✔ |
+| 1.20.2 | ✔ | — | — |
+| 1.20.3 – 1.20.4 | ✔ | ✔ (1.20.4) | — |
+| 1.20.5 – 1.20.6 | ✔ | ✔ | ✔ |
 | 1.21 – 1.21.1 | ✔ | ✔ | ✔ |
+| 1.21.2 – 1.21.3 | ✔ | ✔ | ✔ |
 | 1.21.4 | ✔ | ✔ | ✔ |
+| 1.21.5 | ✔ | ✔ | ✔ |
+| 1.21.6 – 1.21.8 | ✔ | ✔ | ✔ |
+| 1.21.9 – 1.21.10 | ✔ | ✔ | ✔ |
 | 1.21.11 | ✔ | ✔ | ✔ |
 | 26.1 – 26.1.2 | ✔ | ✔ | ✔ |
 | 26.2 | ✔ | ✔ | ✔ |
 | 26.3 | ✔ | ✔ | ✔ |
 
 Every node in this table passed the in-game self-test in the development runtime (key → packet → server, kick damage, knockback, cooldowns, reach, third- and first-person leg); armor reduction was checked on 1.20 Forge, 1.21 Fabric and 26.3 NeoForge. The release jars themselves have not yet been run in a regular launcher.
-Not covered yet / пока не поддерживаются: 1.20.2–1.20.6, 1.21.2–1.21.3, 1.21.5–1.21.10.
+Not covered / не поддерживаются: Forge 1.20.2–1.20.4, NeoForge 1.20.2–1.20.3 (the build template has no such targets).
 
 ## Building / Сборка
 

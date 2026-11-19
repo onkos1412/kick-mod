@@ -7,6 +7,8 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+//?}
+//? if >=1.20.5 || neoforge {
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //?}
 
@@ -22,7 +24,16 @@ public record KickRequest(int targetId) implements CustomPacketPayload {
 	public Type<? extends CustomPacketPayload> type() {
 		return TYPE;
 	}
-//?} else {
+//?} else if neoforge {
+/*// NeoForge 1.20.4: the pre-1.20.5 payload interface (write + id)
+public record KickRequest(int targetId) implements CustomPacketPayload {
+	public static final Identifier ID = KickRegistry.id("request");
+
+	@Override
+	public Identifier id() {
+		return ID;
+	}
+*///?} else {
 /*public record KickRequest(int targetId) {
 	public static final Identifier ID = KickRegistry.id("request");
 *///?}

@@ -7,12 +7,18 @@ import com.kickmod.kick.client.KickClient;
 import com.kickmod.kick.client.KickKeys;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
+//? if >=1.20.5 {
+import net.neoforged.fml.common.EventBusSubscriber;
+//?} else {
+/^import net.neoforged.fml.common.Mod;
+^///?}
 
 /^* Client mod-bus events: setup and key registration. ^/
-//? if <= 1.21.2 {
+//? if <1.20.5 {
+/^@Mod.EventBusSubscriber(modid = Kick.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
+^///?} else if <= 1.21.2 {
 /^@EventBusSubscriber(modid = Kick.MOD_ID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
 ^///?} else {
 @EventBusSubscriber(modid = Kick.MOD_ID, value = Dist.CLIENT)

@@ -31,8 +31,15 @@ val allNodes = listOf(
 	"26.2" to listOf("fabric", "neoforge", "forge"),
 	"26.1" to listOf("fabric", "neoforge", "forge"),
 	"1.21.11" to listOf("fabric", "neoforge", "forge"),
+	"1.21.9" to listOf("fabric", "neoforge", "forge"),
+	"1.21.6" to listOf("fabric", "neoforge", "forge"),
+	"1.21.5" to listOf("fabric", "neoforge", "forge"),
 	"1.21.4" to listOf("fabric", "neoforge", "forge"),
+	"1.21.2" to listOf("fabric", "neoforge", "forge"),
 	"1.21" to listOf("fabric", "neoforge", "forge"),
+	"1.20.5" to listOf("fabric", "neoforge", "forge"),
+	"1.20.3" to listOf("fabric", "neoforge"), // NeoForge node targets 1.20.4
+	"1.20.2" to listOf("fabric"),
 	"1.20" to listOf("fabric", "forge"),
 )
 
