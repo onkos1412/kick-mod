@@ -10,6 +10,7 @@ public class ForgeEntrypoint {
 
 	public ForgeEntrypoint() {
 		Kick.init();
+		ForgeNetwork.register();
 	}
 }
 *///?}

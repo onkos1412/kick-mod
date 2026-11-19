@@ -3,6 +3,7 @@ package com.kickmod.kick.platform.forge;
 //? forge {
 
 /*import com.kickmod.kick.Kick;
+import com.kickmod.kick.client.KickClient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -17,7 +18,7 @@ public class ForgeClientEventSubscriber {
 
 	@SubscribeEvent
 	public static void onClientSetup(final FMLClientSetupEvent event) {
-		Kick.initClient();
+		KickClient.init(new ForgeClientPlatform());
 	}
 }
 *///?}
