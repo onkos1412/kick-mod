@@ -22,6 +22,15 @@ public final class KickRules {
 		return KickDenial.NONE;
 	}
 
+	/** Distance from a point (the kicker's eyes) to the nearest point of an axis-aligned box (the target's hitbox). */
+	public static double distanceToBox(double px, double py, double pz,
+			double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+		double dx = Math.max(0, Math.max(minX - px, px - maxX));
+		double dy = Math.max(0, Math.max(minY - py, py - maxY));
+		double dz = Math.max(0, Math.max(minZ - pz, pz - maxZ));
+		return Math.sqrt(dx * dx + dy * dy + dz * dz);
+	}
+
 	/** Knockback velocity {x, y, z} in the direction the kicker faces (Minecraft yaw convention). */
 	public static double[] knockback(float yawDegrees, KickConfig c) {
 		double rad = Math.toRadians(yawDegrees);

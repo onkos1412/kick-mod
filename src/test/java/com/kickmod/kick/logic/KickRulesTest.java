@@ -93,6 +93,19 @@ class KickRulesTest {
 	}
 
 	@Test
+	void distanceToBoxIsZeroInside() {
+		assertEquals(0.0, KickRules.distanceToBox(0, 1, 0, -0.5, 0, -0.5, 0.5, 2, 0.5), 1e-9);
+	}
+
+	@Test
+	void distanceToBoxUsesNearestPoint() {
+		// eye 2 blocks north of a 1x2x1 mob centred on the origin: nearest face is 1.5 away
+		assertEquals(1.5, KickRules.distanceToBox(0, 1.6, -2, -0.5, 0, -0.5, 0.5, 2, 0.5), 1e-9);
+		// diagonal: 3-4-5 triangle from the box corner
+		assertEquals(5.0, KickRules.distanceToBox(3.5, 1, 4.5, -0.5, 0, -0.5, 0.5, 2, 0.5), 1e-9);
+	}
+
+	@Test
 	void knockbackFacingSouth() {
 		double[] v = KickRules.knockback(0f, CFG);
 		assertEquals(0.0, v[0], 1e-9);
