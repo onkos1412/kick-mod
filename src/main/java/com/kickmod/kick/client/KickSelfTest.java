@@ -84,6 +84,8 @@ public final class KickSelfTest {
 				// stand at the origin facing south (+Z), looking 30 degrees down at a pig 2 blocks ahead
 				run(mc, "tp @a 0.5 -60 0.5 0 30");
 				run(mc, "summon pig 0.5 -60 2.5 {Tags:[\"kst\"]}");
+				// keep it from wandering out of the crosshair; slowness does not affect knockback
+				run(mc, "effect give @e[tag=kst] minecraft:slowness 120 6 true");
 				run(mc, "summon pig 0.5 -60 9.5 {Tags:[\"kst_far\"],NoAI:1b}");
 				wait(20);
 			}
