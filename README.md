@@ -13,7 +13,8 @@ Kick mobs and players with your foot. A just-for-fun Minecraft Java mod.
 - Между пинками есть задержка в 1 секунду. Дальность — 3 блока, сквозь стены пинать нельзя.
 - Если на сервере выключено PvP (или вы в одной команде без огня по своим), игроков пнуть нельзя, только мобов.
 - Если цель погибнет: «Игрок был запинан Пинающий».
-- Мод нужен **и на сервере, и у игроков**. Игроки без мода всё равно могут зайти на сервер с модом (просто не смогут пинать), а с модом можно зайти на сервер без мода (клавиша ничего не делает).
+- Моды защиты территорий и PvP-переключатели могут запретить пинок так же, как обычный удар (пинок проходит через событие атаки загрузчика).
+- Мод нужен **и на сервере, и у игроков**. Сетевой канал мода необязательный, поэтому игроки без мода должны заходить на сервер с модом (просто не смогут пинать), а с модом — на сервер без мода (клавиша ничего не делает). *Это заложено в коде, но вживую ещё не проверялось.* Игроки без мода увидят в сообщении о смерти ключ `death.attack.kick` вместо текста.
 
 **Настройки** — файл `config/kick.json` (создаётся при первом запуске, решают настройки сервера):
 
@@ -38,7 +39,8 @@ Kick mobs and players with your foot. A just-for-fun Minecraft Java mod.
 - 1 second cooldown, 3 block reach, no kicking through walls.
 - With PvP off (or friendly fire off in a team) only mobs can be kicked.
 - Death message: "Player was kicked to death by Kicker".
-- Install on **both server and clients**. Players without the mod can still join a server that has it (they just can't kick), and a modded client can join a server without it (the key does nothing).
+- Land-claim and PvP-toggle mods can block a kick just like a melee hit (kicks go through the loader's attack event).
+- Install on **both server and clients**. The mod's network channel is optional, so players without the mod should be able to join a server that has it (they just can't kick), and a modded client a server without it (the key does nothing). *Designed for, not yet tested live.* Players without the mod see the raw key `death.attack.kick` in kick death messages.
 
 **Config** — `config/kick.json`, same keys as the table above (the server's values apply). Restart to apply changes; invalid values fall back to defaults.
 
@@ -57,7 +59,7 @@ One jar per Minecraft line and loader. Quilt: use the Fabric jar. Fabric also ne
 | 26.2 | ✔ | ✔ | ✔ |
 | 26.3 | ✔ | ✔ | ✔ |
 
-Every jar in this table passed the in-game self-test (kick damage, armor, knockback, cooldowns, reach, third- and first-person leg).
+Every node in this table passed the in-game self-test in the development runtime (key → packet → server, kick damage, knockback, cooldowns, reach, third- and first-person leg); armor reduction was checked on 1.20 Forge, 1.21 Fabric and 26.3 NeoForge. The release jars themselves have not yet been run in a regular launcher.
 Not covered yet / пока не поддерживаются: 1.20.2–1.20.6, 1.21.2–1.21.3, 1.21.5–1.21.10.
 
 ## Building / Сборка

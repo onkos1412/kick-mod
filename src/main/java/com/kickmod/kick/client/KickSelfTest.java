@@ -36,6 +36,33 @@ public final class KickSelfTest {
 
 	private KickSelfTest() {}
 
+	private static boolean protectionVetoRegistered;
+
+	/** Acts like a land-claim mod: cancels the loader's attack event for entities tagged kst_protected. */
+	private static boolean registerProtectionVeto() {
+		if (protectionVetoRegistered) return true;
+		//? if fabric {
+		net.fabricmc.fabric.api.event.player.AttackEntityCallback.EVENT.register((player, level, hand, entity, hit) ->
+			isProtected(entity) ? net.minecraft.world.InteractionResult.FAIL : net.minecraft.world.InteractionResult.PASS);
+		protectionVetoRegistered = true;
+		//?} else if neoforge {
+		/*net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(
+			(net.neoforged.neoforge.event.entity.player.AttackEntityEvent e) -> {
+				if (isProtected(e.getTarget())) e.setCanceled(true);
+			});
+		protectionVetoRegistered = true;
+		*///?}
+		return protectionVetoRegistered;
+	}
+
+	private static boolean isProtected(Entity e) {
+		//? if >=26.1 {
+		return e.entityTags().contains("kst_protected");
+		//?} else {
+		/*return e.getTags().contains("kst_protected");
+		*///?}
+	}
+
 	private static void clearChat(Minecraft mc) {
 		//? if <26.2 {
 		/*mc.gui.getChat().clearMessages(false);
@@ -170,6 +197,18 @@ public final class KickSelfTest {
 			case 15 -> {
 				log((firstPersonLegFrames > 0 ? "PASS" : "FAIL") + " first-person leg was drawn (" + firstPersonLegFrames + " frames)");
 				setHideGui(mc, false);
+				// a pig a "land-claim mod" protects: the loader's attack event is cancelled for it
+				if (registerProtectionVeto()) run(mc, "summon pig 0.5 -60 2.5 {Tags:[\"kst_protected\"],NoAI:1b}");
+				wait(25);
+			}
+			case 16 -> {
+				if (protectionVetoRegistered) send(nearestPig(mc, false));
+				wait(10);
+			}
+			case 17 -> {
+				if (protectionVetoRegistered) {
+					check(mc, "@e[tag=kst_protected,nbt={Health:10.0f}]", "a protection mod's attack-event veto blocked the kick");
+				}
 				log("done");
 				wait(20);
 			}

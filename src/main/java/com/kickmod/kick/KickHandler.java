@@ -36,7 +36,12 @@ public final class KickHandler {
 		level.broadcastEntityEvent(kicker, KickEvents.KICK_ANIMATION);
 
 		Entity target = targetId == KickRequest.AIR ? null : level.getEntity(targetId);
-		KickDenial denial = KickRules.check(attempt(kicker, target), cfg);
+		KickAttempt attempt = attempt(kicker, target);
+		KickDenial denial = KickRules.check(attempt, cfg);
+		if (denial == KickDenial.NONE) {
+			// Let land-claim / PvP mods veto it through the loader's attack event, like a melee hit.
+			denial = KickRules.check(attempt, cfg, Kick.platform().allowPlayerAttack(kicker, target));
+		}
 		if (denial != KickDenial.NONE || !(target instanceof LivingEntity living)) {
 			if (denial != KickDenial.NO_TARGET) Kick.LOGGER.debug("Kick! by {} denied: {}", kicker.getName().getString(), denial);
 			whoosh(level, kicker);

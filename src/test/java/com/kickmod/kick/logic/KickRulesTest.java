@@ -93,6 +93,20 @@ class KickRulesTest {
 	}
 
 	@Test
+	void protectionModVetoBlocksAnOtherwiseValidKick() {
+		// e.g. a land-claim mod cancelling the attack event for a villager in someone's claim
+		assertEquals(KickDenial.PROTECTED, KickRules.check(valid(), CFG, false));
+		assertEquals(KickDenial.NONE, KickRules.check(valid(), CFG, true));
+	}
+
+	@Test
+	void ruleDenialsAreReportedBeforeProtection() {
+		// the attack event is only asked about kicks that would otherwise land
+		assertEquals(KickDenial.TOO_FAR, KickRules.check(withDistance(9), CFG, false));
+		assertEquals(KickDenial.PVP_DISABLED, KickRules.check(playerTarget(false), CFG, false));
+	}
+
+	@Test
 	void distanceToBoxIsZeroInside() {
 		assertEquals(0.0, KickRules.distanceToBox(0, 1, 0, -0.5, 0, -0.5, 0.5, 2, 0.5), 1e-9);
 	}

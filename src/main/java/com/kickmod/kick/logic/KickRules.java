@@ -22,6 +22,16 @@ public final class KickRules {
 		return KickDenial.NONE;
 	}
 
+	/**
+	 * Full check: the rules first, then whether the loader's attack event allowed the hit. The event is
+	 * only consulted for kicks that would otherwise land, like a vanilla attack.
+	 */
+	public static KickDenial check(KickAttempt a, KickConfig c, boolean attackAllowed) {
+		KickDenial denial = check(a, c);
+		if (denial == KickDenial.NONE && !attackAllowed) return KickDenial.PROTECTED;
+		return denial;
+	}
+
 	/** Distance from a point (the kicker's eyes) to the nearest point of an axis-aligned box (the target's hitbox). */
 	public static double distanceToBox(double px, double py, double pz,
 			double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
