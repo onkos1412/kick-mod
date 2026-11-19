@@ -31,8 +31,16 @@ public final class KickSelfTest {
 	private static boolean sawOwnAnimation;
 	/** Frames in which the player model applied a kick pose (incremented by HumanoidModelMixin). */
 	public static int legFramesAnimated;
+	/** Frames in which the first-person leg was drawn (incremented by FirstPersonLegRenderer). */
+	public static int firstPersonLegFrames;
 
 	private KickSelfTest() {}
+
+	private static void clearChat(Minecraft mc) {
+		//? if <26.2 {
+		/*mc.gui.getChat().clearMessages(false);
+		*///?}
+	}
 
 	private static void setHideGui(Minecraft mc, boolean hide) {
 		//? if <26.2 {
@@ -124,7 +132,8 @@ public final class KickSelfTest {
 			case 9 -> {
 				check(mc, "@e[tag=kst_far,nbt={Health:10.0f}]", "server refused a kick from 9 blocks away");
 				// third person, facing the camera, for the leg animation check and screenshot
-				run(mc, "kill @e[type=pig]");
+				run(mc, "kill @e[type=!player]"); // pigs and the porkchops they dropped
+				run(mc, "clear @a");
 				mc.options.setCameraType(CameraType.THIRD_PERSON_FRONT);
 				run(mc, "tp @a 0.5 -60 0.5 30 0");
 				wait(30);
@@ -133,7 +142,7 @@ public final class KickSelfTest {
 				legFramesAnimated = 0;
 				setHideGui(mc, true); // chat would cover the player in the screenshot
 				KeyMapping.click(KickKeys.KICK.getDefaultKey()); // air kick
-				wait(2); // peak of the swing is ~2 ticks in
+				wait(3); // the key is read next tick; the swing peaks ~2 ticks later
 			}
 			case 11 -> {
 				screenshot(mc);
@@ -142,6 +151,22 @@ public final class KickSelfTest {
 			case 12 -> {
 				log((legFramesAnimated > 0 ? "PASS" : "FAIL") + " player model swung the leg (" + legFramesAnimated + " frames)");
 				mc.options.setCameraType(CameraType.FIRST_PERSON);
+				setHideGui(mc, false); // with the GUI hidden the game skips first-person hands (and the leg)
+				run(mc, "tp @a 0.5 -60 0.5 0 0"); // look straight ahead
+				wait(25);
+			}
+			case 13 -> {
+				firstPersonLegFrames = 0;
+				clearChat(mc); // the test's own chat lines would cover the leg in the screenshot
+				KeyMapping.click(KickKeys.KICK.getDefaultKey());
+				wait(3);
+			}
+			case 14 -> {
+				screenshot(mc);
+				wait(8);
+			}
+			case 15 -> {
+				log((firstPersonLegFrames > 0 ? "PASS" : "FAIL") + " first-person leg was drawn (" + firstPersonLegFrames + " frames)");
 				setHideGui(mc, false);
 				log("done");
 				wait(20);

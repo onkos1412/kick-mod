@@ -43,7 +43,11 @@ public abstract class HumanoidModelMixin {
 	private void kick$swingLeg(LivingEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks,
 			float netHeadYaw, float headPitch, CallbackInfo ci) {
 		if (!(entity instanceof Player)) return;
-		float progress = KickAnimations.progress(entity.getId(), ageInTicks - entity.tickCount);
+		float partialTick = ageInTicks - entity.tickCount;
+		// The first-person arm calls setupAnim(player, 0, 0, 0, 0, 0): not a world render, and its
+		// "time" would read as a clock jump that wipes the kick. Only real renders have 0 <= partial < 1.
+		if (partialTick < 0f || partialTick >= 1f) return;
+		float progress = KickAnimations.progress(entity.getId(), partialTick);
 		// PlayerModel copies the leg onto the pants layer after this returns.
 		if (progress > 0f) {
 			rightLeg.xRot = KickCurve.legPitch(progress);
