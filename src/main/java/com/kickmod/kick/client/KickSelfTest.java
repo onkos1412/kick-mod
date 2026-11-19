@@ -1,7 +1,9 @@
 package com.kickmod.kick.client;
 
 import com.kickmod.kick.Kick;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Screenshot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.BackupConfirmScreen;
 import net.minecraft.client.server.IntegratedServer;
@@ -27,8 +29,25 @@ public final class KickSelfTest {
 	private static int nextStepAt = 100; // let the world settle first
 	private static int step;
 	private static boolean sawOwnAnimation;
+	/** Frames in which the player model applied a kick pose (incremented by HumanoidModelMixin). */
+	public static int legFramesAnimated;
 
 	private KickSelfTest() {}
+
+	private static void setHideGui(Minecraft mc, boolean hide) {
+		//? if <26.2 {
+		/*mc.options.hideGui = hide;
+		*///?}
+	}
+
+	private static void screenshot(Minecraft mc) {
+		//? if >=26.2 {
+		Screenshot.grab(mc, false);
+		//?} else {
+		/*Screenshot.grab(mc.gameDirectory, mc.getMainRenderTarget(), message -> {});
+		*///?}
+		log("screenshot taken mid-kick");
+	}
 
 	static void onAnimation(int entityId) {
 		Minecraft mc = Minecraft.getInstance();
@@ -74,12 +93,13 @@ public final class KickSelfTest {
 			}
 			case 3 -> {
 				log((KickClient.requestsSent == 1 ? "PASS" : "FAIL") + " client cooldown kept the second key press from being sent");
-				check(mc, "@e[tag=kst,x=-10,y=-70,z=3.6,dx=20,dy=30,dz=40]", "kicked pig flew south (knockback)");
 				// T+7: bypass the client cooldown; the server must refuse (7 < 20 ticks). Invulnerability
 				// would also block until T+10, so wait for T+14 to make this check discriminating.
 				wait(7);
 			}
 			case 4 -> {
+				// T+14: the flight is over; started at z=2.5, a plain hit moves a pig well under a block
+				check(mc, "@e[tag=kst,x=-10,y=-70,z=3.6,dx=20,dy=30,dz=40]", "kicked pig flew south (knockback)");
 				run(mc, "tp @e[tag=kst] 0.5 -60 2.5");
 				send(nearestPig(mc, false)); // T+14
 				wait(5);
@@ -103,6 +123,26 @@ public final class KickSelfTest {
 			}
 			case 9 -> {
 				check(mc, "@e[tag=kst_far,nbt={Health:10.0f}]", "server refused a kick from 9 blocks away");
+				// third person, facing the camera, for the leg animation check and screenshot
+				run(mc, "kill @e[type=pig]");
+				mc.options.setCameraType(CameraType.THIRD_PERSON_FRONT);
+				run(mc, "tp @a 0.5 -60 0.5 30 0");
+				wait(30);
+			}
+			case 10 -> {
+				legFramesAnimated = 0;
+				setHideGui(mc, true); // chat would cover the player in the screenshot
+				KeyMapping.click(KickKeys.KICK.getDefaultKey()); // air kick
+				wait(2); // peak of the swing is ~2 ticks in
+			}
+			case 11 -> {
+				screenshot(mc);
+				wait(8);
+			}
+			case 12 -> {
+				log((legFramesAnimated > 0 ? "PASS" : "FAIL") + " player model swung the leg (" + legFramesAnimated + " frames)");
+				mc.options.setCameraType(CameraType.FIRST_PERSON);
+				setHideGui(mc, false);
 				log("done");
 				wait(20);
 			}
