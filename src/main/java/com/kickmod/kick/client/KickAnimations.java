@@ -19,6 +19,16 @@ public final class KickAnimations {
 	public static void startLocal() {
 		Minecraft mc = Minecraft.getInstance();
 		if (mc.player != null) STATE.start(mc.player.getId(), now(0f));
+		localKickNanos = System.nanoTime();
+	}
+
+	/** Real time of the local player's last kick key press (drives the camera shake), or -1. */
+	private static long localKickNanos = -1L;
+
+	/** Ticks (50 ms each, real time) since the local player last kicked; -1 if never. */
+	public static float ticksSinceLocalKick() {
+		if (localKickNanos < 0) return -1f;
+		return (System.nanoTime() - localKickNanos) / 50_000_000f;
 	}
 
 	/** 0..1 while the entity is mid-kick, 0 otherwise. */

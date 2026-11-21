@@ -10,6 +10,7 @@ Kick mobs and players with your foot. A just-for-fun Minecraft Java mod.
 - Пинок снимает **одно сердце** (2 HP). Броня, «Защита» и сопротивление уменьшают урон как обычно.
 - Цель отлетает намного сильнее, чем от меча, и подлетает вверх. Сопротивление отбрасыванию (например, незеритовая броня) это уменьшает.
 - Анимация ноги видна и вам (от первого лица), и всем вокруг.
+- В момент удара камера слегка «клюёт» вниз и качается (до 1,5°, полсекунды). Сила следует настройке «Наклон камеры при уроне»; при выключенном покачивании камеры эффекта нет.
 - Между пинками есть задержка в 1 секунду. Дальность — 3 блока, сквозь стены пинать нельзя.
 - Если на сервере выключено PvP (или вы в одной команде без огня по своим), игроков пнуть нельзя, только мобов.
 - Если цель погибнет: «Игрок был запинан Пинающий».
@@ -36,6 +37,7 @@ Kick mobs and players with your foot. A just-for-fun Minecraft Java mod.
 - A kick deals **one heart** (2 HP); armor, Protection and Resistance reduce it as usual.
 - Big knockback with a hop; knockback resistance reduces it.
 - The leg swing is visible to you (first person) and to everyone around.
+- On impact your view dips and wobbles slightly (up to 1.5°, half a second). It follows the Damage Tilt setting and is off when View Bobbing is off.
 - 1 second cooldown, 3 block reach, no kicking through walls.
 - With PvP off (or friendly fire off in a team) only mobs can be kicked.
 - Death message: "Player was kicked to death by Kicker".

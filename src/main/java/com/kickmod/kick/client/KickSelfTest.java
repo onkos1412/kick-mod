@@ -33,6 +33,8 @@ public final class KickSelfTest {
 	public static int legFramesAnimated;
 	/** Frames in which the first-person leg was drawn (incremented by FirstPersonLegRenderer). */
 	public static int firstPersonLegFrames;
+	/** Frames in which the kick camera shake was applied (incremented by KickCameraShake). */
+	public static int shakeFrames;
 
 	private KickSelfTest() {}
 
@@ -186,6 +188,7 @@ public final class KickSelfTest {
 			}
 			case 13 -> {
 				firstPersonLegFrames = 0;
+				shakeFrames = 0;
 				clearChat(mc); // the test's own chat lines would cover the leg in the screenshot
 				KeyMapping.click(KickKeys.KICK.getDefaultKey());
 				wait(3);
@@ -196,6 +199,7 @@ public final class KickSelfTest {
 			}
 			case 15 -> {
 				log((firstPersonLegFrames > 0 ? "PASS" : "FAIL") + " first-person leg was drawn (" + firstPersonLegFrames + " frames)");
+				log((shakeFrames > 0 ? "PASS" : "FAIL") + " camera shook on the kick (" + shakeFrames + " frames)");
 				setHideGui(mc, false);
 				// a pig a "land-claim mod" protects: the loader's attack event is cancelled for it
 				if (registerProtectionVeto()) run(mc, "summon pig 0.5 -60 2.5 {Tags:[\"kst_protected\"],NoAI:1b}");
