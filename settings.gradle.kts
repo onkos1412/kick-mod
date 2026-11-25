@@ -7,8 +7,8 @@ pluginManagement {
 		maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
 		maven("https://maven.minecraftforge.net/") { name = "MinecraftForge" }
 		maven("https://repo.spongepowered.org/repository/maven-public/") { name = "Sponge" }
-		maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
-		maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
+		maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots"; content { includeGroupByRegex("dev[.]kikugie.*") } }
+		maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases"; content { includeGroupByRegex("dev[.]kikugie.*") } }
 		exclusiveContent {
 			forRepository { maven("https://api.modrinth.com/maven") { name = "Modrinth" } }
 			filter { includeGroup("maven.modrinth") }

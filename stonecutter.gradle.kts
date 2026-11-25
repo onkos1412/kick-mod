@@ -22,6 +22,10 @@ val cleanOutput by tasks.registering(Delete::class) {
 }
 
 allprojects {
+	// Plugins add KikuGie's Maven ahead of the others; when it is down, Gradle gives up on every dependency.
+	repositories.withType<MavenArtifactRepository>().matching { it.name.startsWith("KikuGie") }.configureEach {
+		content { includeGroupByRegex("dev[.]kikugie.*") }
+	}
 	tasks.withType<Delete>().configureEach {
 		if (name == "clean") dependsOn(cleanOutput)
 	}
